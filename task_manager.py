@@ -1,6 +1,7 @@
-from storage import (load_expenses as load, save_expenses)
+from storage import (load_expenses as load, save_expenses as save)
 from models import (create_item)
 from datetime import datetime
+import calendar
 
 # ---- Adds Function------
 def add_items(description, amount):
@@ -8,13 +9,13 @@ def add_items(description, amount):
     expenses = load()
     
     if expenses:
-        new_id = expenses[-1]['ID'] + 1
+        new_id = ex   penses[-1]['ID'] + 1
     else:
         new_id = 1
 
     new_item = create_item(new_id, description, amount)
     expenses.append(new_item)
-    save_expenses(expenses)
+    save(expenses)
     print("Expense added succesfully!")
 
 # ------ Update Function ------
@@ -28,7 +29,7 @@ def update_items(item_id, description, amount):
            item['Description'] = description
            item['Amount'] = amount
            item['Updated Date'] = current_time
-           save_expenses(expenses)
+           save(expenses)
            print("Expense updated successfully!")
            return
        
@@ -57,7 +58,7 @@ def delete_item(item_id):
     for item in expenses:
         if item_id == item['ID']:
             expenses.remove(item)
-            save_expenses(expenses)
+            save(expenses)
             print("Expense deleted successfully!")
     else:
         print("Task Not Found!")
@@ -77,10 +78,10 @@ def summary_expenses_by_month(month):
     expenses = load()
 
     total = 0
-
     for item in expenses:
         if month == item['Created Date'].split("-")[1]:
+            month_name = calendar.month_name[month]
             total += item['Amount']
 
-    print(f"Total Expenses for July = ${total}")
+    print(f"Total Expenses for {month_name} = ${total}")
 

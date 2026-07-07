@@ -1,8 +1,10 @@
 from task_manager import (add_items, update_items, list_expenses, delete_item, summary_expenses)
-import argparse
+import argparse # Import a built-in module function in python for using commandLine arguments
 
-parser = argparse.ArgumentParser()
+# Creates a parser for the imported built-in module function that act as an helper that understand hat the user types in through the terminal
+parser = argparse.ArgumentParser() 
 
+# This is a subparser that holds/contains all other command the user types in through the Terminal as CommandLine arguments
 subparsers = parser.add_subparsers(dest="command")
 
 # ----- ADD Command --------
