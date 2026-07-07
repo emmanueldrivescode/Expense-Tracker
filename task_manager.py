@@ -2,6 +2,7 @@ from storage import (load_expenses, save_expenses)
 from models import (create_item)
 from datetime import datetime
 
+# ---- Adds Function------
 def add_items(description, amount):
 
     expenses = load_expenses()
@@ -16,6 +17,7 @@ def add_items(description, amount):
     save_expenses(expenses)
     print("Expense added succesfully!")
 
+# ------ Update Function ------
 def update_items(item_id, description, amount):
     expenses =  load_expenses()
 
@@ -32,6 +34,7 @@ def update_items(item_id, description, amount):
        
     print("Expense ID Not Found!")
 
+# ------ Display Function --------
 def display_expenses(item):
     print(f"ID : {item['ID']}")
     print(f"Description : {item['Description']}")
@@ -40,12 +43,14 @@ def display_expenses(item):
     print(f"Updated Date : {item['Updated Date']}")
     print()
 
+# ------- List Function -------
 def list_expenses():
     expenses = load_expenses()
 
     for item in expenses:
         display_expenses(item)
 
+# ------ Delete Function --------
 def delete_item(item_id):
     expenses = load_expenses()
 
@@ -57,6 +62,7 @@ def delete_item(item_id):
     else:
         print("Task Not Found!")
 
+# ----- Summary Function -------
 def summary_expenses():
     expenses = load_expenses()
 
@@ -66,11 +72,12 @@ def summary_expenses():
 
     print(f"Total Expenses = ${total}")
 
+# ------ Monthly Summary Function ---------
 def summary_expenses_by_month(month):
     expenses = load_expenses()
 
     total = 0
-    
+
     for item in expenses:
         if month == item['Created Date'].split("-")[1]:
             total += item['Amount']
