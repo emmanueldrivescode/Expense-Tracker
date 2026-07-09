@@ -12,6 +12,10 @@ def add_items(description, amount, category):
         new_id = expenses[-1]['ID'] + 1
     else:
         new_id = 1
+    
+    if amount <= 0:
+        print("Amount must be greater than $0")
+        return
 
     new_item = create_item(new_id, description, amount, category)
     expenses.append(new_item)
@@ -21,6 +25,10 @@ def add_items(description, amount, category):
 # ------ Update Function ------
 def update_items(item_id, description, amount):
     expenses =  load()
+
+    if amount <= 0:
+        print("Amount must be greater than $0")
+        return
 
     for item in expenses:
        if item_id == item['ID']:
@@ -45,9 +53,14 @@ def display_expenses(item):
     print(f"Updated Date : {item['Updated Date']}")
     print()
 
-# ------- List Function -------
+# ------- List category Function -------
 def list_expenses_by_category(category):
     expenses = load()
+
+    if not expenses:
+        print("No expenses found.")
+        return
+
     found = False
 
     for item in expenses:
@@ -58,8 +71,13 @@ def list_expenses_by_category(category):
     if not found:
         print("Category Not Found!")
 
+# -------- List all Function --------
 def list_expenses():
     expenses = load()
+
+    if not expenses:
+        print("No expenses found.")
+        return
 
     for item in expenses:
         display_expenses(item)
@@ -68,17 +86,26 @@ def list_expenses():
 def delete_item(item_id):
     expenses = load()
 
+    if not expenses:
+        print("No expenses found!.")
+        return
+        
     for item in expenses:
         if item_id == item['ID']:
             expenses.remove(item)
             save(expenses)
             print("Expense deleted successfully!")
-    else:
-        print("Task Not Found!")
+
+    print("Expense ID Not Found!")
 
 def summary():
     expenses = load()
-    total = 0
+
+    if not expenses:
+        print("No expenses found.")
+        return
+    
+        total = 0
 
     for item in expenses:
         total += item['Amount']
@@ -87,7 +114,15 @@ def summary():
 
 # ----- Summary Monthly Function -------
 def summary_expenses_by_month(month):
+    if month < 1 or month > 12:
+        print("Month must be between 1 to 12")
+        return
+    
     expenses = load()
+
+    if not expenses:
+        print("No expenses found.")
+        return
     total = 0
 
     for item in expenses:
@@ -101,6 +136,11 @@ def summary_expenses_by_month(month):
 
 def export_csv():
     expenses = load()
+
+    if not expenses:
+        print("No expenses available to export.")
+        return
+    
     file_name =  "expense.csv"
 
     if os.path.exists(file_name):

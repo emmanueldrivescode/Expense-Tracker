@@ -11,7 +11,7 @@ subparsers = parser.add_subparsers(dest="command")
 add_parser = subparsers.add_parser("add")
 add_parser.add_argument("description")
 add_parser.add_argument("amount", type=float)
-add_parser.add_argument("category")
+add_parser.add_argument("--category", required=True)
 
 # ------ UPDATE Command -------
 update_parser = subparsers.add_parser("update")
